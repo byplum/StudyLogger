@@ -1,0 +1,51 @@
+<% layout('layouts/boilerplate')%>
+    <div class="row">
+        <h1 class="text-center">Edit Study Session</h1>
+        <div class="col-md-6 offset-md-3">
+            <form action="/study-sessions/<%= ss._id %>?_method=PUT" method="POST" novalidate class="validated-form">
+                <!-- enctype="multipart/form-data" -->
+                <div class="mb-3">
+                    <label class="form-label" for="title">Title</label>
+                    <input class="form-control" type="text" id="title" name="title" value="<%= ss.title %>" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="category">Choose a Category: </label>
+                    <select class="form-select" id="category" name="category" aria-label="Default select example">
+                        <option value="Reading" <% if(ss.category==='Reading' ) { %> selected <% } %> >Reading</option>
+                        <option value="Vocab" <% if(ss.category==='Vocab' ) { %> selected <% } %> >Vocab</option>
+                        <option value="Homework" <% if(ss.category==='Homework' ) { %> selected <% } %> >Homework
+                        </option>
+                        <option value="Skill Development" <% if(ss.category==='Skill Development' ) { %> selected <% }
+                                %> >Skill Development</option>
+                        <option value="Other" <% if(ss.category==='Other' ) { %> selected <% } %> >Other</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="timeStarted">Time Started</label>
+                    <input class="form-control" type="time" id="timeStarted" name="timeStarted" value="<%= ss.timeStarted %>" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="timeEnded">Time Ended</label>
+                    <input class="form-control" type="time" id="timeEnded" name="timeEnded" value="<%= ss.timeEnded %>" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="description">Description</label>
+                    <textarea class="form-control" type="text" id="description" name="description" required>
+                        <%= ss.description %>
+                    </textarea>
+                </div>
+
+                <div class="mb-3">
+                    <button class="btn btn-success">Update Study</button>
+                </div>
+            </form>
+            <a href="/study-sessions">Back</a>
+        </div>
+    </div>

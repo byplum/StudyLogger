@@ -1,0 +1,44 @@
+<% layout('layouts/boilerplate')%>
+
+    <div class="row">
+        <div class="col-md-10 offset-md-1 col-xl-8 offset-xl-2">
+            <div class="card text-center">
+                <div class="card-header">
+                    <%= user.username %> 
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title">
+                        <%= user.firstName %>
+                            <%= user.lastName %>
+                                </h5>
+                                <h3 class="card-subtitle mb-2 text-muted">
+                                    <%= user.totalTime %> minutes Studied</h6>
+                                        <br>
+                                        <% if(user.studySessions.length) { %> 
+                                        <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-3">
+                                            <% for(let ss of user.studySessions) { %>
+                                                <div class="col d-flex justify-content-center">
+                                                    <div class="card" style="width: 18rem;">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">
+                                                                <%= ss.title %>
+                                                            </h5>
+                                                            <p class="card-text">
+                                                                <%= ss.duration %> minutes | <%= ss.category %>
+                                                            </p>
+                                                            <a href="/study-sessions/<%= ss._id %>"
+                                                                class="btn btn-primary">View Details</a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <% } %>
+                                        </div>
+                                        <% } else { %> 
+                                            <p class="text-center">
+                                                I don't even know why you're here. Maybe start studying?
+                                            </p>
+                                        <% } %> 
+                </div>
+            </div>
+        </div>
+    </div>

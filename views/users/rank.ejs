@@ -1,0 +1,28 @@
+<% layout('layouts/boilerplate')%>
+
+  <% users.sort((a, b)=> b.totalTime - a.totalTime); %>
+    <% let i=1; %>
+      <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-5">
+        <% for(let user of users) { %>
+          <div class="col">
+            <div class="card" style="width: 16rem;">
+              <div class="card-header">
+                No. <%= i %>
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">
+                  <%= user.firstName %>
+                    <%= user.lastName %>
+                </h5>
+                <p class="card-text">
+                  <%= user.totalTime %> minutes studied
+                </p>
+                <a href="/users/<%= user.username %>" class="btn btn-primary">View User</a>
+              </div>
+
+            </div>
+            
+          </div>
+          <% i++; %>
+          <% } %>
+      </div>

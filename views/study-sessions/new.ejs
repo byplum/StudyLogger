@@ -1,0 +1,51 @@
+<% layout('layouts/boilerplate')%>
+    <div class="row">
+        <h1 class="text-center">New Study Session</h1>
+        <div class="col-md-6 offset-md-3">
+            <form action="/study-sessions" method="POST" novalidate class="validated-form">
+                <!-- enctype="multipart/form-data" -->
+                <div class="mb-3">
+                    <label class="form-label" for="title">Title</label>
+                    <input class="form-control" type="text" id="title" name="title" required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="category">Choose a Category: </label>
+                    <select class="form-select" id="category" name="category" aria-label="Default select example">
+                        <option value="Reading">Reading</option>
+                        <option value="Vocab">Vocab</option>
+                        <option value="Homework">Homework</option>
+                        <option value="Skill Development">Skill Development</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="timeStarted">Time Started</label>
+                    <input class="form-control" type="time" id="timeStarted" name="timeStarted" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="timeEnded">Time Ended</label>
+                    <input class="form-control" type="time" id="timeEnded" name="timeEnded" required>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label" for="description">Description</label>
+                    <textarea class="form-control" type="text" id="description" name="description" required></textarea>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <button class="btn btn-success">Submit Study</button>
+                </div>
+            </form>
+            <a href="/study-sessions">Back</a>
+        </div>
+    </div>
+
