@@ -1,5 +1,15 @@
 <% layout('layouts/boilerplate')%>
-
+  <form action="/rank" method="GET" class="mb-3 d-flex justify-content-end">
+    <select class="form-select" name="rankRange" aria-label="Rank time range" style="width: 16em; display: inline">
+      <option value="allTime">All Time</option>
+      <option value="1" <% if(rankRange==='1' ) { %> selected <% } %> >Last 24 Hours</option>
+      <option value="3" <% if(rankRange==='3' ) { %> selected <% } %> >Last 3 Days</option>
+      <option value="7" <% if(rankRange==='7' ) { %> selected <% } %>>Last 7 Days</option>
+      <option value="14" <% if(rankRange==='14' ) { %> selected <% } %>>Last 14 Days</option>
+      <option value="30" <% if(rankRange==='30' ) { %> selected <% } %>>Last 30 Days</option>
+    </select>
+      <button class="btn btn-success ms-2">Go</button>
+  </form>
   <% users.sort((a, b)=> b.totalTime - a.totalTime); %>
     <% let i=1; %>
       <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-5">
@@ -21,8 +31,8 @@
               </div>
 
             </div>
-            
+
           </div>
           <% i++; %>
-          <% } %>
+            <% } %>
       </div>

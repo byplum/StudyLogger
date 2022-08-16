@@ -29,7 +29,7 @@ module.exports.login = (req, res) => {
     const redirectUrl = req.session.returnTo || "/study-sessions";
     delete req.session.returnTo;
     res.redirect(redirectUrl);
-  }
+}
 
 module.exports.logout = (req, res, next) => {
     req.logout(err => {
@@ -43,26 +43,33 @@ module.exports.renderRank = async (req, res) => {
     const users = await User.find({}).populate({
         path: 'studySessions'
     });
+    if (req.query && ['1','3','7','14','30'].includes(req.query.rankRange)) {
+        for (let i = 0; i < users.length; i++) {
+            users[i].studySessions = users[i].studySessions.filter(ss => 
+                (Date.now() - ss.createdAt) < parseInt(req.query.rankRange) * 24 * 60 * 60 * 1000);
+        }
+    }
 
-   
-    for(let i = 0; i < users.length; i++) {
+    for (let i = 0; i < users.length; i++) {
         users[i].totalTime = users[i].studySessions.reduce(
-            (previousValue, currentValue) => previousValue + currentValue.duration, 
+            (previousValue, currentValue) => previousValue + currentValue.duration,
             0,
         );
     }
 
-    res.render('users/rank', {users});
+    const {rankRange} = req.query;
+
+    res.render('users/rank', { users, rankRange});
 }
 
 module.exports.showUser = async (req, res) => {
-    const {username} = req.params;
-    const user = await User.findOne({username}).populate({
+    const { username } = req.params;
+    const user = await User.findOne({ username }).populate({
         path: 'studySessions'
     });
     user.totalTime = user.studySessions.reduce(
-        (previousValue, currentValue) => previousValue + currentValue.duration, 
+        (previousValue, currentValue) => previousValue + currentValue.duration,
         0,
     );
-    res.render('users/show', {user});
+    res.render('users/show', { user });
 }

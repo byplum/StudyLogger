@@ -28,7 +28,6 @@ module.exports.studySessionSchema = Joi.object({
     timeEnded: Joi.string().required().escapeHTML(),
     title: Joi.string().required().escapeHTML(),
     category: Joi.string().required().escapeHTML(),
-    duration: Joi.number().required().min(0),
     description: Joi.string().required().escapeHTML()
 });
 
