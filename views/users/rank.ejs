@@ -1,4 +1,5 @@
 <% layout('layouts/boilerplate')%>
+<link rel="stylesheet" href="/stylesheets/users/rank.css">
   <form action="/rank" method="GET" class="mb-3 d-flex justify-content-end">
     <select class="form-select" name="rankRange" aria-label="Rank time range" style="width: 16em; display: inline">
       <option value="allTime">All Time</option>
@@ -15,7 +16,7 @@
       <div class="row row-cols-2 row-cols-md-3 row-cols-xl-5 g-5">
         <% for(let user of users) { %>
           <div class="col">
-            <div class="card" style="width: 16rem;">
+            <div class="card shadow" style="width: 16rem;">
               <div class="card-header">
                 No. <%= i %>
               </div>
