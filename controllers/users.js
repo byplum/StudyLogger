@@ -1,7 +1,7 @@
 const User = require('../models/user');
 
 module.exports.renderSignup = (req, res) => {
-    res.render('users/signup');
+    res.render('users/signup', {title: 'Sign Up'});
 }
 
 module.exports.signup = async (req, res, next) => {
@@ -21,7 +21,7 @@ module.exports.signup = async (req, res, next) => {
 }
 
 module.exports.renderLogin = (req, res) => {
-    res.render('users/login');
+    res.render('users/login', {title: 'Login'});
 }
 
 module.exports.login = (req, res) => {
@@ -59,7 +59,7 @@ module.exports.renderRank = async (req, res) => {
 
     const {rankRange} = req.query;
 
-    res.render('users/rank', { users, rankRange});
+    res.render('users/rank', { users, rankRange, title: 'Rank'});
 }
 
 module.exports.showUser = async (req, res) => {
@@ -71,5 +71,5 @@ module.exports.showUser = async (req, res) => {
         (previousValue, currentValue) => previousValue + currentValue.duration,
         0,
     );
-    res.render('users/show', { user });
+    res.render('users/show', { user, title: `${user.firstName} ${user.lastName}` });
 }

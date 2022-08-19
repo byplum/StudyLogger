@@ -11,11 +11,11 @@ function parseTime(s) {
 
 module.exports.index = async (req, res) => {
     const studySessions = await StudySession.find({}).populate('author');
-    res.render('study-sessions/index', { studySessions });
+    res.render('study-sessions/index', { studySessions, title: 'History' });
 }
 
 module.exports.renderNewForm = (req, res) => {
-    res.render('study-sessions/new');
+    res.render('study-sessions/new', {title: 'New Study Session'});
 }
 
 module.exports.createStudySession = async (req, res) => {
@@ -53,13 +53,13 @@ module.exports.showStudySession = async (req, res) => {
         req.flash('error', 'Cannot find the study you are looking for :(');
         res.redirect('/study-sessions');
     }
-    res.render('study-sessions/show', { ss, showTimeStamp });
+    res.render('study-sessions/show', { ss, showTimeStamp, title: ss.title });
 }
 
 module.exports.renderEditForm = async (req, res) => {
     const id = req.params.id;
     const ss = await StudySession.findById(id);
-    res.render('study-sessions/edit', { ss });
+    res.render('study-sessions/edit', { ss, title: 'Edit Study Session' });
 }
 
 module.exports.updateStudySession = async (req, res) => {

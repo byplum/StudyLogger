@@ -1,7 +1,12 @@
+if (process.env.NODE_ENV !== "production") {
+    require('dotenv').config();
+}
+
 const express = require('express');
 const path = require('path');
 const ejsMate = require('ejs-mate');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const flash = require('connect-flash');
 const mongoSanitize = require('express-mongo-sanitize');
 const helmet = require('helmet');
@@ -17,8 +22,9 @@ const User = require('./models/user');
 const studySessionRoutes = require('./routes/study-sessions');
 const commentRoutes = require('./routes/comments');
 const userRoutes = require('./routes/users');
-
-mongoose.connect('mongodb://localhost:27017/study-logger');
+const dbUrl = process.env.DB_URL || 'mongodb://localhost:27017/study-logger';
+// 'mongodb://localhost:27017/study-logger' process.env.DB_URL
+mongoose.connect(dbUrl);
 
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "connection error:"));
@@ -37,13 +43,17 @@ app.use(methodOverride('_method'));
 app.use(mongoSanitize());
 app.use(helmet({contentSecurityPolicy: false}));
 
-
+const secret = process.env.SECRET || 'keyboard cat';
 
 const sessionConfig = {
     name: 'session',
-    secret: 'thisisasecret',
+    secret,
     resave: false,
     saveUninitialized: true,
+    store: MongoStore.create({
+        mongoUrl: dbUrl,
+        touchAfter: 24 * 3600 // time period in seconds
+    }),
     cookie: {
         httpOnly: true,
         // secure: true,
